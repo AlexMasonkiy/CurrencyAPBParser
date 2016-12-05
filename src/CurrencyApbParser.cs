@@ -24,16 +24,8 @@ namespace CurrencyAPB
         /// </summary>
         /// <returns></returns>
         public Courses GetAllToday()
-        {
-            var response = client.Execute<Currency>(request);
-            var inputString = response.Content.Replace("<?xml version=\"1.0\" encoding=\"windows-1251\"?>", "");
-            XmlSerializer serializer = new XmlSerializer(typeof(Courses));
-            var result = new Courses();
-            using (TextReader reader = new StringReader(inputString))
-            {
-                result = (Courses)serializer.Deserialize(reader);                
-            }
-            return result;
+        {            
+            return GetRequest(request);
         }
 
         /// <summary>
@@ -44,7 +36,12 @@ namespace CurrencyAPB
         {
             var formatDate = date.ToString("yyyy-MM-dd");
             request.AddParameter("date", formatDate);
-            var response = client.Execute<Currency>(request);
+            return GetRequest(request);
+        }
+
+        private Courses GetRequest(RestRequest requestData)
+        {
+            var response = client.Execute<Currency>(requestData);
             var inputString = response.Content.Replace("<?xml version=\"1.0\" encoding=\"windows-1251\"?>", "");
             XmlSerializer serializer = new XmlSerializer(typeof(Courses));
             var result = new Courses();
