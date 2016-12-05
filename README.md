@@ -3,7 +3,7 @@ get all currency from agroprombank by date
 
 need install RestSharp from http://restsharp.org/
 
-example using:
+<b>example using:</b>
 
   var parser = new CurrencyApbParser();
   
